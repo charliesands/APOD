@@ -1,15 +1,31 @@
 import ApodService from './apodService.js'
+import Pic from '../models/pic.js';
 
 const apodService = new ApodService
 
 function draw(data) {
-  document.getElementById('pictures').innerHTML = `
+  document.getElementById('app').innerHTML = `
   <div id="error"></div>
   <button onclick="app.controllers.apod.getPic()">
   Get Pictures
   </button>
   <div id="pictures"></div>
    `
+}
+
+function drawPic(data) {
+  let template = ''
+  data(pic => {
+
+    template += `<div>
+    copyright ${pic.copyright}
+    hdurl: ${pic.name}
+    </div>
+    `
+  });
+
+
+  document.getElementById('pictures').innerHTML = template
 }
 
 function drawError(error) {
@@ -23,6 +39,6 @@ export default class apodController {
   }
 
   getPic() {
-    apodService.getPic()
+    apodService.getPic(drawPic, drawError)
   }
 }

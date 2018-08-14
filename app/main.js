@@ -1,4 +1,4 @@
-import ApodController from "./components/apodController";
+import ApodController from "./components/apodController.js";
 
 
 class App {
